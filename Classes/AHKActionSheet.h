@@ -90,6 +90,15 @@ typedef void(^AHKActionSheetHandler)(AHKActionSheet *actionSheet);
 - (void)addButtonWithTitle:(NSString *)title type:(AHKActionSheetButtonType)type handler:(AHKActionSheetHandler)handler;
 
 /**
+ *  Adds a button without an image. Has to be called before showing the action sheet.
+ *
+ *  @param textAttributes Text attributes to override the global button text style.
+ *  @param image   The image to display on the left of the title.
+ *  @param handler A completion handler block to execute when a dismissal animation (after the user tapped on the button) has finished.
+ */
+- (void)addButtonWithTitle:(NSString *)title textAttributes:(NSDictionary *)textAttributes image:(UIImage *)image type:(AHKActionSheetButtonType)type handler:(AHKActionSheetHandler)handler;
+
+/**
  *  Adds a button with an image. Has to be called before showing the action sheet.
  *
  *  @param image   The image to display on the left of the title.

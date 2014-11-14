@@ -31,6 +31,7 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
 /// Used for storing button configuration.
 @interface AHKActionSheetItem : NSObject
 @property (copy, nonatomic) NSString *title;
+@property (copy, nonatomic) NSDictionary *textAttributes;
 @property (strong, nonatomic) UIImage *image;
 @property (nonatomic) AHKActionSheetButtonType type;
 @property (strong, nonatomic) AHKActionSheetHandler handler;
@@ -140,6 +141,10 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
             break;
     }
 
+    if ( item.textAttributes != nil ) {
+        attributes = item.textAttributes;
+    }
+
     NSAttributedString *attrTitle = [[NSAttributedString alloc] initWithString:item.title attributes:attributes];
     cell.textLabel.attributedText = attrTitle;
     cell.textLabel.textAlignment = [self.buttonTextCenteringEnabled boolValue] ? NSTextAlignmentCenter : NSTextAlignmentLeft;
@@ -235,8 +240,15 @@ static const CGFloat kCancelButtonShadowHeightRatio = 0.333f;
 
 - (void)addButtonWithTitle:(NSString *)title image:(UIImage *)image type:(AHKActionSheetButtonType)type handler:(AHKActionSheetHandler)handler
 {
+    [self addButtonWithTitle:title textAttributes:nil image:image type:type handler:handler];
+}
+
+- (void)addButtonWithTitle:(NSString *)title textAttributes:(NSDictionary *)textAttributes image:(UIImage *)image type:(AHKActionSheetButtonType)type handler:(AHKActionSheetHandler)handler
+
+{
     AHKActionSheetItem *item = [[AHKActionSheetItem alloc] init];
     item.title = title;
+    item.textAttributes = textAttributes;
     item.image = image;
     item.type = type;
     item.handler = handler;
